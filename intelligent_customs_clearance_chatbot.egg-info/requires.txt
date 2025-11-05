@@ -1,0 +1,12 @@
+flask
+pypdf
+python-dotenv
+requests
+torch
+transformers
+sentence-transformers
+langchain
+langchain-community
+langchain-pinecone
+langchain-huggingface
+pinecone-client
