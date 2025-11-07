@@ -22,7 +22,7 @@ body {
 }
 
 h2 {
-    color: #007bff;
+    color: #003893;
     font-size: 24px; /* Increased font size */
 }
 
@@ -45,7 +45,7 @@ h2 {
 }
 
 .user-message {
-    background: #007bff;
+    background: #003893;
     color: white;
     align-self: flex-end;
     text-align: right;
@@ -81,5 +81,5 @@ button {
 }
 
 button:hover {
-    background: #0056b3;
+    background: #003893;
 }

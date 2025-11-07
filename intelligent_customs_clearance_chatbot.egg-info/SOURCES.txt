@@ -8,3 +8,4 @@ src/__init__.py
 src/helper.py
 src/prompt.py
 src/store_index.py
+src/trade_api_integration.py
