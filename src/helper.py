@@ -1,11 +1,8 @@
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter 
 
-
-# NEW (Updated)
 from langchain_huggingface import HuggingFaceEmbeddings  
 
-# New (Updated)
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 
  
@@ -34,7 +31,8 @@ pdf_files = [
     "D:\\Customs Clearance_chatbot\\data\\Navigating Import.pdf",
     "D:\\Customs Clearance_chatbot\\data\\nepal.pdf",
     "D:\\Customs Clearance_chatbot\\data\\np_e.pdf",
-    "D:\\Customs Clearance_chatbot\\data\\trade_industry_tax.pdf"
+    "D:\\Customs Clearance_chatbot\\data\\trade_industry_tax.pdf",
+    "D:\\Customs Clearance_chatbot\\data\\CUSTOMS_ACT &  REGULATION 2064_1wnta5d.pdf"
 ]
 
 all_documents = load_multiple_pdfs(pdf_files)
@@ -44,7 +42,7 @@ all_documents = load_multiple_pdfs(pdf_files)
 
 # split the data  into text chunks 
 def text_split(all_documents) :
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size = 750, chunk_overlap = 70 )
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size = 750, chunk_overlap = 100 )
     text_chunks = text_splitter.split_documents(all_documents)
 
     return text_chunks

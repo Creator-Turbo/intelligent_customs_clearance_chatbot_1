@@ -21,7 +21,8 @@ pdf_files = [
     "D:\Customs Clearance_chatbot\\data\\Navigating Import.pdf",
     "D:\Customs Clearance_chatbot\\data\\nepal.pdf",
     "D:\Customs Clearance_chatbot\\data\\np_e.pdf",
-    "D:\Customs Clearance_chatbot\\data\\trade_industry_tax.pdf"
+    "D:\Customs Clearance_chatbot\\data\\trade_industry_tax.pdf",
+    "D:\Customs Clearance_chatbot\\data\\CUSTOMS_ACT &  REGULATION 2064_1wnta5d.pdf"
 ]
 
 

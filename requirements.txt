@@ -2,6 +2,12 @@
 flask
 python-dotenv
 
+fastapi
+uvicorn[standard]
+python-multipart
+
+
+
 # LangChain Ecosystem
 langchain
 langchain-community
@@ -33,5 +39,11 @@ requests
 # google Translate API 
 deep-translator
 langdetect
+
+
+
+gTTS
+playsound==1.2.2
+
 
 -e .

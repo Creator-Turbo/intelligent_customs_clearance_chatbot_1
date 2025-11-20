@@ -23,7 +23,7 @@ setup(
         "langchain-community",
         "langchain-pinecone",
         "langchain-huggingface",
-        "pinecone-client",
+        "pinecone-client"
+        
    ]
 )
-

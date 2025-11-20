@@ -1,23 +1,26 @@
-from flask import Flask, render_template, request, jsonify
-from src.helper import download_hugging_face_embeddings
-from langchain_pinecone import PineconeVectorStore
-from langchain.chains import create_retrieval_chain
-from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_groq import ChatGroq
-from langchain_core.chat_history import InMemoryChatMessageHistory
-from dotenv import load_dotenv
-from deep_translator import GoogleTranslator
-from langdetect import detect
-from src.prompt import *
 import os
+import json
 import tempfile
-from werkzeug.utils import secure_filename
 from PyPDF2 import PdfReader
 from docx import Document
 from PIL import Image
 import pytesseract
+from langdetect import detect
+from src.prompt import *
+from langdetect import detect
+from dotenv import load_dotenv
+from langchain_groq import ChatGroq
+from werkzeug.utils import secure_filename
+from deep_translator import GoogleTranslator
+from flask import Flask, render_template, request, jsonify, Response
+from src.helper import download_hugging_face_embeddings
+from langchain_pinecone import PineconeVectorStore
+from langchain.chains import create_retrieval_chain
+from langchain_core.prompts import ChatPromptTemplate
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_core.chat_history import InMemoryChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
+
 
 # ----------------------------- Flask App Setup -----------------------------
 app = Flask(__name__)
@@ -42,12 +45,21 @@ docsearch = PineconeVectorStore.from_existing_index(index_name=index_name, embed
 retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k": 3})
 
 # ----------------------------- LLM Setup -----------------------------
+# llm = ChatGroq(
+#     model="llama-3.3-70b-versatile",
+#     temperature=0.7,
+#     max_tokens=512,
+#     max_retries=3,
+# )
+
+
 llm = ChatGroq(
     model="llama-3.3-70b-versatile",
     temperature=0.7,
     max_tokens=512,
-    max_retries=3,
+    streaming=True
 )
+
 
 # ----------------------------- Prompt Template -----------------------------
 prompt = ChatPromptTemplate.from_messages([
@@ -175,15 +187,6 @@ def upload_file():
 
         session_id = "default_user"
 
-        # # Step 1: Verify Document Authenticity
-        # verification_prompt = (
-        #     "You are a customs document verification assistant. "
-        #     "Analyze the following text and check if it looks like a valid customs document "
-        #     "(invoice, bill of lading, or customs declaration). "
-        #     "Identify if any key details are missing (like HS code, country of origin, product description, or value). "
-        #     "Reply with '✅ Verified: [reason]' if correct, or '❌ Invalid: [reason]' if issues found.\n\n"
-        #     f"Document Text:\n{extracted_text[:3000]}"
-        # )
 
         verification_prompt = (
     "You are a **Customs Document Verification Assistant**.\n"
@@ -243,6 +246,9 @@ def upload_file():
         return jsonify({"error": str(e)}), 500
 
 
+
 # ----------------------------- Main -----------------------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+
